@@ -100,12 +100,38 @@
 
 
     const quizQuestions = [
-      { question: "Which of the following food is a local delight found in Korea?", options: ["Miso", "Bread", "Kimchi", "Yoghurt", "Kombucha"], answer: 2 },
-      { question: "What is the solid looking thing found on the surface of Kombucha?", options: ["SCOBY (culture of Bacteria and Yeast)", "Milk", "Yeast", "Bacteria "], answer: 0 },
-      { question: "We can eat as much Miso as we want since it is very healthy. ", options: ["True", "False"], answer: 1 },
-      { question: "What does bakers yeast release during bread making?", options: ["Oxygen", "Carbon dioxide", "Nitrogen "], answer: 1 },
-      { question: "In yoghurt, the bacteria found is called Lactobacillus ", options: ["True", "False"], answer: 0 }
-    ];
+  {
+    question: "Which of the following food is a local delight found in Korea?",
+    options: ["Miso", "Bread", "Kimchi", "Yoghurt", "Kombucha"],
+    answer: 2,
+    explanation: "Kimchi – Kimchi is made with fermented cabbage and is originated from Korea. "
+  },
+  {
+    question: "What is the solid looking thing found on the surface of Kombucha?",
+    options: ["SCOBY (culture of Bacteria and Yeast)", "Milk", "Yeast", "Bacteria"],
+    answer: 0,
+    explanation: "SCOBY - At the surface of Kombucha, there is thick solid known as pellicle. This is called SCOBY which is a symbiotic culture of bacteria and yeast. "
+  },
+  {
+    question: "We can eat as much Miso as we want since it is very healthy.",
+    options: ["True", "False"],
+    answer: 1,
+    explanation: "FALSE – Contains high levels of sodium which can be dangerous if taken without moderation. "
+  },
+  {
+    question: "What does baker's yeast release during bread making?",
+    options: ["Oxygen", "Carbon dioxide", "Nitrogen"],
+    answer: 1,
+    explanation: "Carbon dioxide - Bakers yeast eats sugar and releases carbon dioxide gas from the dough "
+  },
+  {
+    question: "In yoghurt, the bacteria found is called Lactobacillus.",
+    options: ["True", "False"],
+    answer: 0,
+    explanation: "TRUE – yoghurt contains live bacteria. The strain of the bacteria used is called Lactobacillus "
+  }
+];
+
 
     let currentQuestion = 0;
     let answered = false;
@@ -123,21 +149,21 @@
     btn.textContent = opt;
     btn.style.border = "2px solid gray";
     btn.onclick = () => {
-      if (answered) return;
-      answered = true;
+  if (answered) return;
+  answered = true;
 
-      if (i === q.answer) {
-        btn.style.backgroundColor = "lightgreen";
-        btn.style.border = "2px solid green";
-        feedbackBox.textContent = "✅ Correct!";
-      } else {
-        btn.style.backgroundColor = "salmon";
-        btn.style.border = "2px solid red";
-        feedbackBox.textContent = "❌ Incorrect!";
-      }
+  if (i === q.answer) {
+    btn.style.backgroundColor = "lightgreen";
+    btn.style.border = "2px solid green";
+    feedbackBox.textContent = "✅ Correct!";
+  } else {
+    btn.style.backgroundColor = "salmon";
+    btn.style.border = "2px solid red";
+    feedbackBox.innerHTML = `❌ Incorrect!<br><span style="font-weight: normal;">${q.explanation}</span>`;
+  }
 
-      nextButton.style.display = "inline-block"; // show next button now
-    };
+  nextButton.style.display = "inline-block";
+};
     optionsBox.appendChild(btn);
   });
 
