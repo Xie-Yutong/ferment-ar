@@ -135,6 +135,7 @@
 
     let currentQuestion = 0;
     let answered = false;
+    let score = 0;
 
     function showQuestion(index) {
   const q = quizQuestions[index];
@@ -153,14 +154,16 @@
   answered = true;
 
   if (i === q.answer) {
-    btn.style.backgroundColor = "lightgreen";
-    btn.style.border = "2px solid green";
-    feedbackBox.textContent = "✅ Correct!";
-  } else {
-    btn.style.backgroundColor = "salmon";
-    btn.style.border = "2px solid red";
-    feedbackBox.innerHTML = `❌ Incorrect!<br><span style="font-weight: normal;">${q.explanation}</span>`;
-  }
+  btn.style.backgroundColor = "lightgreen";
+  btn.style.border = "2px solid green";
+  feedbackBox.textContent = "✅ Correct!";
+  score++;
+} else {
+  btn.style.backgroundColor = "salmon";
+  btn.style.border = "2px solid red";
+  feedbackBox.innerHTML = `❌ Incorrect!<br><span style="font-weight: normal;">${q.explanation}</span>`;
+}
+
 
   nextButton.style.display = "inline-block";
 };
@@ -172,15 +175,19 @@
 
 
     nextButton.addEventListener("click", () => {
-      currentQuestion++;
-      if (currentQuestion < quizQuestions.length) {
-        showQuestion(currentQuestion);
-      } else {
-        questionBox.textContent = "🎉 Hooray! Quiz completed!";
-        optionsBox.innerHTML = "";
-        nextButton.style.display = "none";
-      }
-    });
+  currentQuestion++;
+  if (currentQuestion < quizQuestions.length) {
+    showQuestion(currentQuestion);
+  } else {
+    questionBox.innerHTML = `<strong>🎉 You scored ${score}/5!</strong>`;
+    optionsBox.innerHTML = "";
+    feedbackBox.innerHTML = (score === 5)
+      ? `🎁 <br>Congratulations on aceing this challenge! Please approach any of the staff to collect your special prize!`
+      : `🌟 <br>Thank you for actively participating in this game! You’re finally a Fermentation Explorer!`;
+    nextButton.style.display = "none";
+  }
+});
+
 
     const showModal = (index) => {
       document.querySelectorAll(".info-box").forEach(div => div.style.display = "none");
