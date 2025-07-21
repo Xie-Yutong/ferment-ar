@@ -120,12 +120,17 @@
 
   <body>
     <div id="welcome-screen">
-      <h1>Welcome to the Fermentation Explorer Challenge! Are you ready to embark on this exciting adventure?</h1>
-      <p>1. Find the 5 hidden fermented food items around the booth. </p>
-      <p>2. Scan each item to learn fun facts and earn 5 points. </p>
-      <p>3. Complete the final quiz to earn bonus points.</p>
-      <button id="start-button">Start</button>
+      <div id="welcome-logo-screen">
+        <img src="https://xieyutong.github.io/ferment-ar/" alt="Logo" style="width: 200px; max-width: 80%; margin-bottom: 20px;" />
+        <button id="start-button">Start</button>
+      </div>
+    
+      <div id="instruction-screen" style="display:none; flex-direction: column; align-items: center;">
+        <img src="instructions.png" alt="Instructions" style="width: 90%; max-width: 500px; margin-bottom: 20px;" />
+        <button id="play-button">Let's Play</button>
+      </div>
     </div>
+
 
     <div id="item-counter">
       Items Found: <span id="count">0</span>/4
@@ -180,12 +185,22 @@
     const counterSpan = document.getElementById("count");
 
     const startButton = document.getElementById("start-button");
+    const playButton = document.getElementById("play-button");
     const welcomeScreen = document.getElementById("welcome-screen");
+    const welcomeLogoScreen = document.getElementById("welcome-logo-screen");
+    const instructionScreen = document.getElementById("instruction-screen");
+    
     startButton.addEventListener("click", () => {
+      welcomeLogoScreen.style.display = "none";
+      instructionScreen.style.display = "flex";
+    });
+    
+    playButton.addEventListener("click", () => {
       speechSynthesis.getVoices(); // preload
       welcomeScreen.style.display = "none";
       sceneEl.style.display = "block";
     });
+
 
     const quizScreen = document.getElementById("quiz-screen");
     const questionBox = document.getElementById("quiz-question");
