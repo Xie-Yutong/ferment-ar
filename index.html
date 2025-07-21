@@ -153,8 +153,10 @@
     <div id="quiz-screen">
       <div id="quiz-question"></div>
       <div id="quiz-options"></div>
-      <button id="next-button">Next</button>
+      <div id="quiz-feedback" style="margin-top: 10px; font-weight: bold;"></div>
+      <button id="next-button" style="display: none;">Next</button>
     </div>
+
 
     <!-- AR Scene -->
     <a-scene id="ar-scene"
@@ -189,6 +191,8 @@
     const questionBox = document.getElementById("quiz-question");
     const optionsBox = document.getElementById("quiz-options");
     const nextButton = document.getElementById("next-button");
+    const feedbackBox = document.getElementById("quiz-feedback");
+
 
     const quizQuestions = [
       { question: "What ingredient is common in Meiji chocolate?", options: ["Flour", "Sugar", "Salt", "Cheese"], answer: 1 },
@@ -202,36 +206,39 @@
     let answered = false;
 
     function showQuestion(index) {
-      const q = quizQuestions[index];
-      answered = false;
-      nextButton.disabled = true;
-      questionBox.textContent = q.question;
-      optionsBox.innerHTML = "";
+  const q = quizQuestions[index];
+  answered = false;
+  nextButton.style.display = "none"; // hide next button at start
+  questionBox.textContent = q.question;
+  optionsBox.innerHTML = "";
+  feedbackBox.textContent = "";
 
-      q.options.forEach((opt, i) => {
-        const btn = document.createElement("button");
-        btn.textContent = opt;
-        btn.style.border = "2px solid gray";
-        btn.onclick = () => {
-          if (answered) return;
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement("button");
+    btn.textContent = opt;
+    btn.style.border = "2px solid gray";
+    btn.onclick = () => {
+      if (answered) return;
+      answered = true;
 
-          answered = true;
-          if (i === q.answer) {
-            btn.style.backgroundColor = "lightgreen";
-            btn.style.border = "2px solid green";
-            questionBox.textContent += " ✅ Correct!";
-          } else {
-            btn.style.backgroundColor = "salmon";
-            btn.style.border = "2px solid red";
-            questionBox.textContent += " ❌ Incorrect!";
-          }
-          nextButton.disabled = false;
-        };
-        optionsBox.appendChild(btn);
-      });
+      if (i === q.answer) {
+        btn.style.backgroundColor = "lightgreen";
+        btn.style.border = "2px solid green";
+        feedbackBox.textContent = "✅ Correct!";
+      } else {
+        btn.style.backgroundColor = "salmon";
+        btn.style.border = "2px solid red";
+        feedbackBox.textContent = "❌ Incorrect!";
+      }
 
-      nextButton.textContent = (index === quizQuestions.length - 1) ? "Finish" : "Next";
-    }
+      nextButton.style.display = "inline-block"; // show next button now
+    };
+    optionsBox.appendChild(btn);
+  });
+
+  nextButton.textContent = (index === quizQuestions.length - 1) ? "Finish" : "Next";
+}
+
 
     nextButton.addEventListener("click", () => {
       currentQuestion++;
