@@ -1,0 +1,303 @@
+<html>
+  <head>
+    <title>Fermentation Fun!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        font-family: sans-serif;
+      }
+
+      #welcome-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: white;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+      }
+
+      #welcome-screen h1 {
+        font-size: 2em;
+        margin-bottom: 1em;
+      }
+
+      #start-button {
+        padding: 12px 24px;
+        font-size: 1em;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      .info-box {
+        position: fixed;
+        top: 10%;
+        right: 2%;
+        width: 300px;
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        display: none;
+        z-index: 999;
+      }
+
+      .info-box h3 {
+        margin-top: 0;
+      }
+
+      #item-counter {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 10px 16px;
+        border-radius: 8px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        z-index: 998;
+        font-size: 16px;
+        display: none;
+      }
+
+      #quiz-screen {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: white;
+        z-index: 2000;
+        font-family: sans-serif;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        text-align: center;
+      }
+
+      #quiz-question {
+        max-width: 600px;
+        font-size: 20px;
+      }
+
+      #quiz-options {
+        margin-top: 20px;
+      }
+
+      #quiz-options button {
+        margin: 6px;
+        padding: 10px 16px;
+        font-size: 16px;
+      }
+
+      #next-button {
+        margin-top: 30px;
+        padding: 10px 20px;
+        font-size: 16px;
+      }
+
+      a-scene {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="welcome-screen">
+      <h1>Welcome to the Fermentation Explorer Challenge! Are you ready to embark on this exciting adventure?</h1>
+      <p>1. Find the 5 hidden fermented food items around the booth. </p>
+      <p>2. Scan each item to learn fun facts and earn 5 points. </p>
+      <p>3. Complete the final quiz to earn bonus points.</p>
+      <button id="start-button">Start</button>
+    </div>
+
+    <div id="item-counter">
+      Items Found: <span id="count">0</span>/4
+    </div>
+
+    <!-- Info Modals -->
+    <div id="modal-0" class="info-box">
+      <h3>Congrats, you found yoghurt!</h3>
+      <p>Did you know? Yoghurt contains live bacteria called Lactobacillus. This helps your gut stay healthy! </p>
+    </div>
+    <div id="modal-1" class="info-box">
+      <h3>Congrats, you found kombucha!</h3>
+      <p>Kombucha is a fermented tea made with SCOBY. This contains bacteria and yeast cells. That slimy thing? - it’s alive and packed with nutrients!</p>
+    </div>
+    <div id="modal-2" class="info-box">
+      <h3>Congrats, you found kimchi!</h3>
+      <p>Kimchi is a Korean superfood! It is made from fermented cabbage and provides us with lots of health benefits. </p>
+    </div>
+    <div id="modal-3" class="info-box">
+      <h3>Congrats, you found bread!</h3>
+      <p>Did you see that bread rising? It is because of baker's yeast! The yeast eats sugar in the dough and releases carbon dioxide.</p>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="quiz-screen">
+      <div id="quiz-question"></div>
+      <div id="quiz-options"></div>
+      <button id="next-button">Next</button>
+    </div>
+
+    <!-- AR Scene -->
+    <a-scene id="ar-scene"
+      mindar-image="imageTargetSrc: https://Xie-Yutong.github.io/ar-test/targets4.mind; maxTrack: 4" 
+      color-space="sRGB"
+      renderer="colorManagement: true, physicallyCorrectLights"
+      vr-mode-ui="enabled: false"
+      device-orientation-permission-ui="enabled: false">
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+      <a-entity mindar-image-target="targetIndex: 0" id="target-0"></a-entity>
+      <a-entity mindar-image-target="targetIndex: 1" id="target-1"></a-entity>
+      <a-entity mindar-image-target="targetIndex: 2" id="target-2"></a-entity>
+      <a-entity mindar-image-target="targetIndex: 3" id="target-3"></a-entity>
+    </a-scene>
+
+    <script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const sceneEl = document.querySelector("a-scene");
+    const scannedSet = new Set();
+    const counterBox = document.getElementById("item-counter");
+    const counterSpan = document.getElementById("count");
+
+    const startButton = document.getElementById("start-button");
+    const welcomeScreen = document.getElementById("welcome-screen");
+    startButton.addEventListener("click", () => {
+      speechSynthesis.getVoices(); // preload
+      welcomeScreen.style.display = "none";
+      sceneEl.style.display = "block";
+    });
+
+    const quizScreen = document.getElementById("quiz-screen");
+    const questionBox = document.getElementById("quiz-question");
+    const optionsBox = document.getElementById("quiz-options");
+    const nextButton = document.getElementById("next-button");
+
+    const quizQuestions = [
+      { question: "What ingredient is common in Meiji chocolate?", options: ["Flour", "Sugar", "Salt", "Cheese"], answer: 1 },
+      { question: "Where is the eyedrop from?", options: ["NTU", "NUS", "Harvard", "Yale-NUS"], answer: 3 },
+      { question: "What is special about the tea?", options: ["It’s iced", "It’s hot", "It’s ancient", "It’s green"], answer: 2 },
+      { question: "What's inside the wafer box?", options: ["Chips", "Nothing", "Candy", "More wafers"], answer: 1 },
+      { question: "How many items did you scan?", options: ["1", "2", "3", "4"], answer: 3 }
+    ];
+
+    let currentQuestion = 0;
+    let answered = false;
+
+    function showQuestion(index) {
+      const q = quizQuestions[index];
+      answered = false;
+      nextButton.disabled = true;
+      questionBox.textContent = q.question;
+      optionsBox.innerHTML = "";
+
+      q.options.forEach((opt, i) => {
+        const btn = document.createElement("button");
+        btn.textContent = opt;
+        btn.style.border = "2px solid gray";
+        btn.onclick = () => {
+          if (answered) return;
+
+          answered = true;
+          if (i === q.answer) {
+            btn.style.backgroundColor = "lightgreen";
+            btn.style.border = "2px solid green";
+            questionBox.textContent += " ✅ Correct!";
+          } else {
+            btn.style.backgroundColor = "salmon";
+            btn.style.border = "2px solid red";
+            questionBox.textContent += " ❌ Incorrect!";
+          }
+          nextButton.disabled = false;
+        };
+        optionsBox.appendChild(btn);
+      });
+
+      nextButton.textContent = (index === quizQuestions.length - 1) ? "Finish" : "Next";
+    }
+
+    nextButton.addEventListener("click", () => {
+      currentQuestion++;
+      if (currentQuestion < quizQuestions.length) {
+        showQuestion(currentQuestion);
+      } else {
+        questionBox.textContent = "🎉 Hooray! Quiz completed!";
+        optionsBox.innerHTML = "";
+        nextButton.style.display = "none";
+      }
+    });
+
+    const showModal = (index) => {
+      document.querySelectorAll(".info-box").forEach(div => div.style.display = "none");
+      const modal = document.getElementById(`modal-${index}`);
+      if (modal) modal.style.display = "block";
+    };
+
+    const hideModals = () => {
+      document.querySelectorAll(".info-box").forEach(div => div.style.display = "none");
+    };
+
+    function speakText(text) {
+      const speak = () => {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = "en-US";
+        speechSynthesis.cancel();
+        setTimeout(() => {
+          speechSynthesis.speak(utterance);
+        }, 200);
+      };
+      if (speechSynthesis.getVoices().length === 0) {
+        speechSynthesis.onvoiceschanged = speak;
+      } else {
+        speak();
+      }
+    }
+
+    for (let i = 0; i < 4; i++) {
+      const target = document.getElementById(`target-${i}`);
+      target.addEventListener("targetFound", () => {
+        showModal(i);
+        const text = document.getElementById(`modal-${i}`).innerText;
+        speakText(text);
+
+        if (!scannedSet.has(i)) {
+          scannedSet.add(i);
+          counterSpan.textContent = scannedSet.size;
+          counterBox.style.display = "block";
+
+          if (scannedSet.size === 4) {
+            setTimeout(() => {
+              sceneEl.style.display = "none";
+              quizScreen.style.display = "flex";
+              showQuestion(0);
+            }, 1000);
+          }
+        }
+      });
+
+      target.addEventListener("targetLost", () => {
+        hideModals();
+      });
+    }
+  });
+</script>
+
+  </body>
+</html>
