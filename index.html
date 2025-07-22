@@ -78,7 +78,39 @@ window.addEventListener("DOMContentLoaded", () => {
   const nextButton = document.getElementById("next-button");
   const feedbackBox = document.getElementById("quiz-feedback");
 
-  const quizQuestions = [/* keep your questions array here unchanged */];
+  const quizQuestions = [
+  {
+    question: "Which of the following food is a local delight found in Korea?",
+    options: ["Miso", "Bread", "Kimchi", "Yoghurt", "Kombucha"],
+    answer: 2,
+    explanation: "Kimchi – Kimchi is made with fermented cabbage and is originated from Korea."
+  },
+  {
+    question: "What is the solid looking thing found on the surface of Kombucha?",
+    options: ["SCOBY (culture of Bacteria and Yeast)", "Milk", "Yeast", "Bacteria"],
+    answer: 0,
+    explanation: "SCOBY - At the surface of Kombucha, there is thick solid known as pellicle. This is called SCOBY which is a symbiotic culture of bacteria and yeast."
+  },
+  {
+    question: "We can eat as much Miso as we want since it is very healthy.",
+    options: ["True", "False"],
+    answer: 1,
+    explanation: "FALSE – Contains high levels of sodium which can be dangerous if taken without moderation."
+  },
+  {
+    question: "What does baker's yeast release during bread making?",
+    options: ["Oxygen", "Carbon dioxide", "Nitrogen"],
+    answer: 1,
+    explanation: "Carbon dioxide - Bakers yeast eats sugar and releases carbon dioxide gas from the dough."
+  },
+  {
+    question: "In yoghurt, the bacteria found is called Lactobacillus.",
+    options: ["True", "False"],
+    answer: 0,
+    explanation: "TRUE – Yoghurt contains live bacteria. The strain of the bacteria used is called Lactobacillus."
+  }
+];
+
 
   let currentQuestion = 0;
   let answered = false;
