@@ -53,22 +53,39 @@ body {
 
 
 
+/* Info box modal styling for mobile full screen */
 .info-box {
-position: fixed;
-top: 10%;
-right: 2%;
-width: 300px;
-background: white;
-padding: 20px;
-border-radius: 12px;
-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-display: none;
-z-index: 999;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: white;
+  z-index: 9999;
+  padding: 20px;
+  box-sizing: border-box;
+  font-family: sans-serif;
 }
 
 .info-box h3 {
-margin-top: 0;
+  font-size: 1.5em;
+  margin-bottom: 10px;
 }
+
+.info-box p {
+  font-size: 1em;
+  line-height: 1.4;
+}
+
+.modal-image {
+  width: 100%;
+  height: auto;
+  margin-top: 10px;
+  border-radius: 8px;
+}
+
 
 #item-counter {
 position: fixed;
@@ -125,14 +142,19 @@ a-scene {
 display: none;
 }
 
-.modal-image {
-  margin-top: 12px;
-  width: 100%;
-  height: auto; 
-  max-height: 300px; 
-  object-fit: contain;
-  border-radius: 8px;
+.modal-next-button {
+  padding: 14px 28px;
+  font-size: 1.05em;
+  font-weight: 600;
+  background: linear-gradient(135deg, #8B5E3C, #6B3E1D); /* warm brown gradient */
+  color: #fff8f0;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(139, 94, 60, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 8px 0;
+  letter-spacing: 0.5px;
 }
-
 
 
