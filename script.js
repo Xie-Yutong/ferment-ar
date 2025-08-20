@@ -20,7 +20,7 @@ window.addEventListener("DOMContentLoaded", () => {
     question: "What makes Kimchi sour during fermentation?",
     options: ["Sugar", "Vinegar", "Salt", "Pepper", "Lactic acid"],
     answer: 4,
-    explanation: "Kimchi – Kimchi is made with fermented cabbage and is originated from Korea."
+    explanation: "Lactic acid – Kimchi tastes sour because of something called lactic acid. Tiny good bacteria eat the natural sugars in the cabbage and make lactic acid"
   },
   {
     question: "What is the solid looking thing found on the surface of Kombucha?",
