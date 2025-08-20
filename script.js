@@ -17,8 +17,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const quizQuestions = [
   {
-    question: "Which of the following food is a local delight found in Korea?",
-    options: ["Miso", "Bread", "Kimchi", "Yoghurt", "Kombucha"],
+    question: "What makes Kimchi sour during fermentation?",
+    options: ["Sugar", "Vinegar", "Salt", "Pepper", "Lactic acid"],
     answer: 2,
     explanation: "Kimchi – Kimchi is made with fermented cabbage and is originated from Korea."
   },
@@ -128,7 +128,7 @@ document.querySelectorAll(".modal-next-button").forEach((btn, index) => {
     const arContainer = document.getElementById("ar-container");
     arContainer.innerHTML = `
       <a-scene id="ar-scene"
-        mindar-image="imageTargetSrc: https://Xie-Yutong.github.io/ar-test/targets4.mind; maxTrack: 4" 
+        mindar-image="imageTargetSrc: https://Xie-Yutong.github.io/ferment-ar/targets5.mind; maxTrack: 5" 
         color-space="sRGB"
         renderer="colorManagement: true, physicallyCorrectLights"
         vr-mode-ui="enabled: false"
@@ -138,6 +138,7 @@ document.querySelectorAll(".modal-next-button").forEach((btn, index) => {
         <a-entity mindar-image-target="targetIndex: 1" id="target-1"></a-entity>
         <a-entity mindar-image-target="targetIndex: 2" id="target-2"></a-entity>
         <a-entity mindar-image-target="targetIndex: 3" id="target-3"></a-entity>
+        <a-entity mindar-image-target="targetIndex: 4" id="target-4"></a-entity>
       </a-scene>
     `;
 
@@ -159,7 +160,7 @@ document.querySelectorAll(".modal-next-button").forEach((btn, index) => {
       document.querySelectorAll(".info-box").forEach(div => div.style.display = "none");
     };
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 5; i++) {
       const tryBind = () => {
         const target = document.getElementById(`target-${i}`);
         if (!target) return setTimeout(tryBind, 300);
@@ -172,7 +173,7 @@ document.querySelectorAll(".modal-next-button").forEach((btn, index) => {
             counterSpan.textContent = scannedSet.size;
             counterBox.style.display = "block";
 
-            if (scannedSet.size === 4) {
+            if (scannedSet.size === 5) {
             const lastButton = document.querySelector(`#modal-${i} .modal-next-button`);
             if (lastButton) {
                 lastButton.textContent = "Start Quiz";
