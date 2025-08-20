@@ -19,7 +19,7 @@ window.addEventListener("DOMContentLoaded", () => {
   {
     question: "What makes Kimchi sour during fermentation?",
     options: ["Sugar", "Vinegar", "Salt", "Pepper", "Lactic acid"],
-    answer: 2,
+    answer: 4,
     explanation: "Kimchi – Kimchi is made with fermented cabbage and is originated from Korea."
   },
   {
