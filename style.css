@@ -27,7 +27,7 @@ body {
   padding: 14px 28px;
   font-size: 1.05em;
   font-weight: 600;
-  background: #ffA500; 
+  background: #ffd400; 
   color: #fff8f0;
   border: none;
   border-radius: 12px;
@@ -39,7 +39,7 @@ body {
 }
 
 .app-button:hover {
-  background: #ffA500;
+  background: #ffd400;
   box-shadow: 0 6px 14px rgba(107, 62, 29, 0.4);
   transform: translateY(-1px);
 }
@@ -126,7 +126,7 @@ display: none;
   font-size: 1.6em;
   font-weight: 600;
   margin-bottom: 20px;
-  color: #ffA500;
+  color: #ffd400;
 }
 
 #quiz-options {
@@ -151,7 +151,7 @@ display: none;
 
 #quiz-options button:hover {
   background-color: #f0eae4;
-  border-color: #ffA500;
+  border-color: #ffd400;
 }
 
 #quiz-feedback {
@@ -174,7 +174,7 @@ display: none;
   padding: 14px 28px;
   font-size: 1.05em;
   font-weight: 600;
-  background: #ffA500;
+  background: #ffd400;
   color: #fff8f0;
   border: none;
   border-radius: 12px;
@@ -184,7 +184,7 @@ display: none;
 }
 
 #next-button:hover {
-  background: #ffA500;
+  background: #ffd400;
   box-shadow: 0 6px 14px rgba(107, 62, 29, 0.4);
   transform: translateY(-1px);
 }
@@ -202,7 +202,7 @@ display: none;
   padding: 14px 28px;
   font-size: 1.05em;
   font-weight: 600;
-  background: #ffa500;
+  background: #ffd400;
   color: #fff8f0;
   border: none;
   border-radius: 12px;
