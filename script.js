@@ -111,7 +111,7 @@ document.querySelectorAll(".modal-next-button").forEach((btn, index) => {
       optionsBox.innerHTML = "";
       feedbackBox.innerHTML = (score === 5)
         ? `🎁 <br>Congratulations on aceing this challenge! Please approach any of the staff to collect your special prize!`
-        : `🌟 <br>Thank you for actively participating in this game! You’re finally a Fermentation Explorer!`;
+        : `🌟 <br>Thank you for actively participating in this game! You’re now a Fermentation Explorer!`;
       nextButton.style.display = "none";
     }
   });

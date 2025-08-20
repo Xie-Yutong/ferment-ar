@@ -213,4 +213,12 @@ display: none;
   letter-spacing: 0.5px;
 }
 
+.modal-video {
+  margin-top: 12px;
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+  object-fit: contain;
+  border-radius: 8px;
+}
 
