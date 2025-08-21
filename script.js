@@ -23,12 +23,6 @@ window.addEventListener("DOMContentLoaded", () => {
     explanation: "Lactic acid – Kimchi tastes sour because of something called lactic acid. Tiny good bacteria eat the natural sugars in the cabbage and make lactic acid"
   },
   {
-    question: "What is the solid looking thing found on the surface of Kombucha?",
-    options: ["SCOBY (culture of Bacteria and Yeast)", "Milk", "Yeast", "Bacteria"],
-    answer: 0,
-    explanation: "SCOBY - At the surface of Kombucha, there is thick solid known as pellicle. This is called SCOBY which is a symbiotic culture of bacteria and yeast."
-  },
-  {
     question: "We can eat as much Miso as we want since it is very healthy.",
     options: ["True", "False"],
     answer: 1,
@@ -40,12 +34,6 @@ window.addEventListener("DOMContentLoaded", () => {
     answer: 1,
     explanation: "Carbon dioxide - Bakers yeast eats sugar and releases carbon dioxide gas from the dough."
   },
-  {
-    question: "In yoghurt, the bacteria found is called Lactobacillus.",
-    options: ["True", "False"],
-    answer: 0,
-    explanation: "TRUE – Yoghurt contains live bacteria. The strain of the bacteria used is called Lactobacillus."
-  }
 ];
 
 
@@ -107,9 +95,9 @@ document.querySelectorAll(".modal-next-button").forEach((btn, index) => {
     if (currentQuestion < quizQuestions.length) {
       showQuestion(currentQuestion);
     } else {
-      questionBox.innerHTML = `<strong>🎉 You scored ${score}/5!</strong>`;
+      questionBox.innerHTML = `<strong>🎉 You scored ${score}/3!</strong>`;
       optionsBox.innerHTML = "";
-      feedbackBox.innerHTML = (score === 5)
+      feedbackBox.innerHTML = (score === 3)
         ? `🎁 <br>Congratulations on aceing this challenge! Please approach any of the staff to collect your special prize!`
         : `🌟 <br>Thank you for actively participating in this game! You’re now a Fermentation Explorer!`;
       nextButton.style.display = "none";
@@ -128,7 +116,7 @@ document.querySelectorAll(".modal-next-button").forEach((btn, index) => {
     const arContainer = document.getElementById("ar-container");
     arContainer.innerHTML = `
       <a-scene id="ar-scene"
-        mindar-image="imageTargetSrc: https://Xie-Yutong.github.io/ferment-ar/targets6.mind; maxTrack: 5" 
+        mindar-image="imageTargetSrc: https://Xie-Yutong.github.io/ferment-ar/targets6.mind; maxTrack: 3" 
         color-space="sRGB"
         renderer="colorManagement: true, physicallyCorrectLights"
         vr-mode-ui="enabled: false"
@@ -137,8 +125,6 @@ document.querySelectorAll(".modal-next-button").forEach((btn, index) => {
         <a-entity mindar-image-target="targetIndex: 0" id="target-0"></a-entity>
         <a-entity mindar-image-target="targetIndex: 1" id="target-1"></a-entity>
         <a-entity mindar-image-target="targetIndex: 2" id="target-2"></a-entity>
-        <a-entity mindar-image-target="targetIndex: 3" id="target-3"></a-entity>
-        <a-entity mindar-image-target="targetIndex: 4" id="target-4"></a-entity>
       </a-scene>
     `;
 
@@ -160,7 +146,7 @@ document.querySelectorAll(".modal-next-button").forEach((btn, index) => {
       document.querySelectorAll(".info-box").forEach(div => div.style.display = "none");
     };
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 3; i++) {
       const tryBind = () => {
         const target = document.getElementById(`target-${i}`);
         if (!target) return setTimeout(tryBind, 300);
@@ -173,7 +159,7 @@ document.querySelectorAll(".modal-next-button").forEach((btn, index) => {
             counterSpan.textContent = scannedSet.size;
             counterBox.style.display = "block";
 
-            if (scannedSet.size === 5) {
+            if (scannedSet.size === 3) {
             const lastButton = document.querySelector(`#modal-${i} .modal-next-button`);
             if (lastButton) {
                 lastButton.textContent = "Start Quiz";
